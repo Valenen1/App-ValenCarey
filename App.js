@@ -1,45 +1,63 @@
-import React, { useState, useEffect } from "react";
-import { View, StyleSheet } from "react-native";
-import UserSelection from "./components/UserSelection";
-import AuthForm from "./components/AuthForm";
-import LoadingScreen from "./components/LoadingScreen"; // Importa la pantalla de carga
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { ThemeProvider } from "./ThemeContext"; // Importa el ThemeProvider
+import HomeScreen from "./screens/HomeScreen";
+import AuthScreen from "./screens/AuthScreen";
+import ChatScreen from "./screens/ChatScreen";
+import SettingsScreen from "./screens/SettingsScreen";
+import LoginScreen from "./screens/LoginScreen";
+import RegisterScreen from "./screens/RegisterScreen";
+import UserSelectionScreen from "./screens/UserSelectionScreen";
+
+const Stack = createStackNavigator();
 
 const App = () => {
-  const [userType, setUserType] = useState(null);
-  const [isLoading, setIsLoading] = useState(true); // Estado para la pantalla de carga
-
-  useEffect(() => {
-    // Simula una carga de datos
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000); // Cambia este tiempo según tus necesidades
-  }, []);
-
-  const handleSelectUserType = (type) => {
-    setUserType(type);
-  };
-
-  if (isLoading) {
-    return <LoadingScreen />; // Muestra la pantalla de carga si isLoading es true
-  }
-
   return (
-    <View style={styles.container}>
-      {userType ? (
-        <AuthForm userType={userType} onSwitch={() => setUserType(null)} />
-      ) : (
-        <UserSelection onSelect={handleSelectUserType} />
-      )}
-    </View>
+    <ThemeProvider>
+      {" "}
+      {/* Envuelve tu aplicación en el ThemeProvider */}
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Seleccion Usuario">
+          <Stack.Screen
+            name="Seleccion Usuario"
+            options={{ headerShown: false }}
+            component={UserSelectionScreen}
+          />
+          <Stack.Screen
+            name="Inicio de Sesión"
+            options={{ headerShown: false }}
+            component={LoginScreen}
+          />
+          <Stack.Screen
+            name="Registro"
+            options={{ headerShown: false }}
+            component={RegisterScreen}
+          />
+          <Stack.Screen
+            name="OWC Ventures"
+            options={{ headerShown: false }}
+            component={HomeScreen}
+          />
+          <Stack.Screen
+            name="Auth"
+            options={{ headerShown: false }}
+            component={AuthScreen}
+          />
+          <Stack.Screen
+            name="Chat"
+            options={{ headerShown: false }}
+            component={ChatScreen}
+          />
+          <Stack.Screen
+            name="Settings"
+            options={{ headerShown: false }}
+            component={SettingsScreen}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ThemeProvider>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
 
 export default App;
