@@ -27,7 +27,7 @@ const LoginScreen = ({ navigation }) => {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch("http://localhost:3000/login", {
+      const response = await fetch("http://localhost:3000/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -39,7 +39,8 @@ const LoginScreen = ({ navigation }) => {
 
       if (response.ok) {
         // Si el login es exitoso, redirige a otra pantalla
-        await AsyncStorage.setItem("token", data.token);
+        await AsyncStorage.setItem("userToken", data.token);
+        console.log("Token guardado:", data.token);
         navigation.navigate("Home"); // O donde necesites redirigir
       } else {
         // Si hay un error, muestra el mensaje

@@ -28,16 +28,17 @@ const RegisterScreen = ({ navigation }) => {
 
   const handleRegister = async () => {
     try {
-      const response = await api.post("/register", {
+      const response = await api.post("/auth/register", {
         username,
         dni,
         role,
         password,
       });
       console.log("Registration successful:", response.data);
-      Alert.alert("Success", "Account created successfully", [
-        { text: "OK", onPress: () => navigation.navigate("Login") },
-      ]);
+      navigation.navigate("Login"); // Redirige a la pantalla de login
+      // Alert.alert("Success", "Account created successfully", [
+      //   { text: "OK", onPress: () => navigation.navigate("Login") },
+      // ]);
     } catch (error) {
       console.log("Registration error:", error.response?.data);
       Alert.alert(

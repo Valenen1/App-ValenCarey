@@ -27,9 +27,13 @@ const ProfileEditScreen = ({ navigation }) => {
         { backgroundColor: isDarkTheme ? "#333" : "#fff" },
       ]}
     >
-      <Text style={styles.title}>Nombre Usuario: </Text>
+      <Text style={[styles.title, { color: isDarkTheme ? "#fff" : "#000" }]}>
+        Nombre Usuario:{" "}
+      </Text>
 
-      <Text style={styles.title}>DNI: </Text>
+      <Text style={[styles.title, { color: isDarkTheme ? "#fff" : "#000" }]}>
+        DNI:{" "}
+      </Text>
 
       <Button title="Guardar" onPress={handleSave} />
       <Button
